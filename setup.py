@@ -6,9 +6,10 @@ import sys
 from setuptools import setup
 
 
-README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 
 install_requires = [
+    'ujson>=1.33',
     'wheezy.core>=0.1.131',
     'wheezy.caching>=0.1.106',
     'wheezy.html>=0.1.140',
