@@ -1,4 +1,7 @@
 build/
+content/static/*.html
+content/static/css/*.css
+content/static/js/*.js
 dist/
 env/
 src/*.egg-info/
