@@ -3,16 +3,16 @@
 
 from wheezy.routing import url
 
-from public.web.views import WelcomeHandler
+from public.web.views import css_file
 from public.web.views import http400
 from public.web.views import http403
 from public.web.views import http404
 from public.web.views import http500
+from public.web.views import js_file
 from public.web.views import static_file
 
 
 public_urls = [
-    url('home', WelcomeHandler, name='home')
 ]
 
 error_urls = [
@@ -23,7 +23,8 @@ error_urls = [
 ]
 
 static_urls = [
-    url('static/{path:any}', static_file, name='static'),
+    url('js/{path:any}', js_file, name='js'),
+    url('css/{path:any}', css_file, name='css'),
     url('favicon.ico', static_file, {'path': 'img/favicon.ico'}),
     url('robots.txt', static_file, {'path': 'robots.txt'}, name='robots')
 ]
