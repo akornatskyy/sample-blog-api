@@ -21,6 +21,10 @@ main = WSGIApplication(
     options=options)
 
 
+def factory(c):
+    return main
+
+
 if __name__ == '__main__':
     from wsgiref.handlers import BaseHandler
     from wsgiref.simple_server import make_server
