@@ -3,6 +3,7 @@
 
 from wheezy.routing import url
 
+from public.web.views import DailyQuoteHandler
 from public.web.views import css_file
 from public.web.views import http400
 from public.web.views import http403
@@ -11,6 +12,10 @@ from public.web.views import http500
 from public.web.views import js_file
 from public.web.views import static_file
 
+
+public_api_urls = [
+    url('quote/daily', DailyQuoteHandler)
+]
 
 public_urls = [
 ]

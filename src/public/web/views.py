@@ -4,14 +4,33 @@
 import ujson
 
 from wheezy.http import response_cache
+from wheezy.http.response import HTTPResponse
+from wheezy.http.response import bad_request
 from wheezy.http.transforms import gzip_transform
 from wheezy.http.transforms import response_transforms
-from wheezy.http.response import HTTPResponse
 from wheezy.web.handlers import file_handler
+
+from shared.views import APIHandler
 
 from public.web.profile import public_cache_profile
 from public.web.profile import static_cache_profile
 
+
+class DailyQuoteHandler(APIHandler):
+
+    @response_cache(public_cache_profile)
+    @response_transforms(gzip_transform(compress_level=9))
+    def get(self):
+        if not self.request.ajax:
+            return bad_request()
+        return self.json_response(self.get_daily_quote())
+
+    def get_daily_quote(self):
+        with self.factory() as f:
+            return f.quote.daily()
+
+
+# region: static file handlers
 
 wraps_handler = lambda p: lambda h: response_cache(p)(
     response_transforms(gzip_transform(compress_level=9))(h))
@@ -21,7 +40,7 @@ welcome = w(file_handler('content/static'))
 
 
 def error_response(status_code, subject, message):
-    b = ujson.encode({
+    b = ujson.dumps({
         'ok': False,
         'code': status_code,
         'subject': subject,

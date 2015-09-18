@@ -11,7 +11,8 @@ from config import config
 
 static_cache_profile = CacheProfile(
     'public',
-    duration=timedelta(minutes=15),
+    duration=timedelta(seconds=2),
+    # duration=timedelta(minutes=15),
     vary_environ=['HTTP_ACCEPT_ENCODING'],
     namespace='static',
     http_vary=['Accept-Encoding'],
