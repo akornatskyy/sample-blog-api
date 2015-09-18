@@ -1,7 +1,5 @@
 build/
-content/static/*.html
-content/static/css/*.css
-content/static/js/*.js
+content/static
 dist/
 env/
 src/*.egg-info/
