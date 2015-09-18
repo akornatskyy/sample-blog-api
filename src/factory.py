@@ -1,7 +1,12 @@
 """
 """
 
+from wheezy.core.descriptors import attribute
+from wheezy.core.introspection import import_name
+
 from config import config
+
+from public.service.bridge import QuoteService
 
 
 class Factory(object):
@@ -18,11 +23,19 @@ class Factory(object):
     def __exit__(self, exc_type, exc_value, traceback):
         self.session.__exit__(exc_value, exc_value, traceback)
 
+    @attribute
+    def quote(self):
+        return QuoteService(self.factory, self.context['errors'])
+
 
 class RepositoryFactory(object):
 
     def __init__(self, session):
         self.session = session
+
+    @attribute
+    def quote(self):
+        return QuotePersistence(self.session)
 
 
 def mock_sessions():
@@ -34,6 +47,8 @@ def mock_sessions():
 
 # region: configuration details
 mode = config.get('runtime', 'mode')
+QuotePersistence = import_name('public.repository.%s.'
+                               'QuoteRepository' % mode)
 if mode == 'mock':
     sessions = mock_sessions()
 else:
