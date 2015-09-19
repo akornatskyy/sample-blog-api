@@ -11,6 +11,7 @@ from wheezy.http.transforms import response_transforms
 from wheezy.web.handlers import file_handler
 
 from shared.views import APIHandler
+from shared.views import wraps_handler
 
 from public.web.profile import public_cache_profile
 from public.web.profile import static_cache_profile
@@ -31,13 +32,6 @@ class DailyQuoteHandler(APIHandler):
 
 
 # region: static file handlers
-
-wraps_handler = lambda p: lambda h: response_cache(p)(
-    response_transforms(gzip_transform(compress_level=9))(h))
-
-w = wraps_handler(public_cache_profile)
-welcome = w(file_handler('content/static'))
-
 
 def error_response(status_code, subject, message):
     b = ujson.dumps({
@@ -64,6 +58,11 @@ that the request you sent to the website server (i.e. a request to load a \
 web page) was somehow malformed therefore the server was unable to \
 understand or process the request.')
 
+http401 = error_response(
+    status_code=401,
+    subject='Oops! Code 401. Sorry, requires authorization.',
+    message='Your credentials do not allow access to this resource.')
+
 http403 = error_response(
     status_code=403,
     subject='Oops! Code 403. Access is denied.',
@@ -84,6 +83,7 @@ http500 = error_response(
     message='The web server encountered an unexpected condition that \
 prevented it from fulfilling the request by the client for access to the \
 requested URL.')
+
 
 w = wraps_handler(static_cache_profile)
 css_file = w(file_handler('content/static/css'))
