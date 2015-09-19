@@ -6,6 +6,7 @@ from wheezy.core.introspection import import_name
 
 from config import config
 
+from membership.service.bridge import MembershipService
 from public.service.bridge import QuoteService
 
 
@@ -24,6 +25,10 @@ class Factory(object):
         self.session.__exit__(exc_value, exc_value, traceback)
 
     @attribute
+    def membership(self):
+        return MembershipService(self.factory, self.context['errors'])
+
+    @attribute
     def quote(self):
         return QuoteService(self.factory, self.context['errors'])
 
@@ -32,6 +37,10 @@ class RepositoryFactory(object):
 
     def __init__(self, session):
         self.session = session
+
+    @attribute
+    def membership(self):
+        return MembershipPersistence(self.session)
 
     @attribute
     def quote(self):
@@ -47,6 +56,8 @@ def mock_sessions():
 
 # region: configuration details
 mode = config.get('runtime', 'mode')
+MembershipPersistence = import_name('membership.repository.%s.'
+                                    'MembershipRepository' % mode)
 QuotePersistence = import_name('public.repository.%s.'
                                'QuoteRepository' % mode)
 if mode == 'mock':
