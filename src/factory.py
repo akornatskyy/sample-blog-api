@@ -7,6 +7,7 @@ from wheezy.core.introspection import import_name
 from config import config
 
 from membership.service.bridge import MembershipService
+from posts.service.bridge import PostsService
 from public.service.bridge import QuoteService
 
 
@@ -29,6 +30,12 @@ class Factory(object):
         return MembershipService(self.factory, self.context['errors'])
 
     @attribute
+    def posts(self):
+        return PostsService(self.factory,
+                            self.context['errors'],
+                            self.context['principal'])
+
+    @attribute
     def quote(self):
         return QuoteService(self.factory, self.context['errors'])
 
@@ -41,6 +48,10 @@ class RepositoryFactory(object):
     @attribute
     def membership(self):
         return MembershipPersistence(self.session)
+
+    @attribute
+    def posts(self):
+        return PostsPersistence(self.session)
 
     @attribute
     def quote(self):
@@ -58,6 +69,8 @@ def mock_sessions():
 mode = config.get('runtime', 'mode')
 MembershipPersistence = import_name('membership.repository.%s.'
                                     'MembershipRepository' % mode)
+PostsPersistence = import_name('posts.repository.%s.'
+                               'PostsRepository' % mode)
 QuotePersistence = import_name('public.repository.%s.'
                                'QuoteRepository' % mode)
 if mode == 'mock':
