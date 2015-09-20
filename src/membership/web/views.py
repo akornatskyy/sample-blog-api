@@ -23,9 +23,10 @@ class SignInHandler(APIHandler):
 
     def authenticate(self, credential):
         with self.factory('ro') as f:
-            if not f.membership.authenticate(credential):
+            user = f.membership.authenticate(credential)
+            if not user:
                 return False
-        self.principal = Principal(id=credential.username)
+        self.principal = Principal(id=user['id'])
         return True
 
 

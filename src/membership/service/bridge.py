@@ -11,7 +11,8 @@ class MembershipService(ErrorsMixin):
         self.errors = errors
 
     def authenticate(self, credential):
-        if not self.factory.membership.authenticate(credential):
+        up = self.factory.membership.authenticate(credential.username.lower())
+        if not up or up['password'] != credential.password:
             self.error('The username or password provided is incorrect.')
-            return False
-        return True
+            return None
+        return self.factory.membership.get_user(up['id'])
