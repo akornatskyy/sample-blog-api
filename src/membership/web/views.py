@@ -15,8 +15,8 @@ class SignInHandler(APIHandler):
 
     def post(self):
         m = attrdict(username=u(''), password=u(''))
-        m.update(self.request.form)
-        if (not self.validate(m, credential_validator) or
+        if (not self.try_update_model(m) or
+                not self.validate(m, credential_validator) or
                 not self.authenticate(m)):
             return self.json_errors()
         return self.json_response({'username': m.username})
@@ -48,7 +48,7 @@ class SignOutHandler(APIHandler):
 
     def get(self):
         del self.principal
-        return self.json_response({'ok': True})
+        return self.json_response({})
 
 
 class UserHandler(APIHandler):
