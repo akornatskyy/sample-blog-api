@@ -1,7 +1,10 @@
 import json
 import os.path
 
+from datetime import datetime
+
 from wheezy.core.collections import attrdict
+from wheezy.core.datetime import UTC
 
 from shared import mock as _
 from membership.repository.mock import find_user_by_id
@@ -40,7 +43,6 @@ class PostsRepository(object):
             return None
         a = find_user_by_id(p.author_id)
         return {
-            'id': p.id,
             'slug': p.slug,
             'title': p.title,
             'created_on': p.created_on,
@@ -49,7 +51,7 @@ class PostsRepository(object):
                 'last_name': a.last_name
             },
             'message': p.message
-        }
+        }, p.id
 
     def list_comments(self, post_id, author_id):
         r = []
@@ -75,6 +77,21 @@ class PostsRepository(object):
         return len(_.nfilter(
             samples.comments, limit,
             lambda c: c.author_id == user_id and not c.moderated))
+
+    def add_post_comment(self, slug, author_id, message):
+        p = _.first(samples.posts, lambda p: p.slug == slug)
+        if not p:
+            return False
+        now = datetime.utcnow().replace(tzinfo=UTC)
+        samples['comments'].insert(0, attrdict(
+            author_id=int(author_id),
+            created_on=now.isoformat(),
+            id='',
+            message=message,
+            moderated=False,
+            post_id=p.id
+        ))
+        return True
 
 
 samples = json.load(open(os.path.join(
