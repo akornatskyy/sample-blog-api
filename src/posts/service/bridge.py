@@ -1,6 +1,7 @@
 """
 """
 
+from wheezy.security.authorization import authorized
 from wheezy.validation.mixin import ErrorsMixin
 
 
@@ -31,3 +32,11 @@ class PostsService(ErrorsMixin):
     def list_comments(self, post_id):
         return self.factory.posts.list_comments(
             post_id, self.principal and self.principal.id)
+
+    @authorized
+    def add_post_comment(self, slug, message):
+        r = self.factory.posts.add_post_comment(
+            slug, self.principal.id, message)
+        if not r:
+            self.error('Post not found.')
+        return r
