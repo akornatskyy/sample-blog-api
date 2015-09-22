@@ -1,14 +1,11 @@
 """
 """
 
-from wheezy.validation.mixin import ErrorsMixin
 
+class QuoteService(object):
 
-class QuoteService(ErrorsMixin):
-
-    def __init__(self, factory, errors):
+    def __init__(self, factory):
         self.factory = factory
-        self.errors = errors
 
     def daily(self):
         return self.factory.quote.get_daily_quote()
