@@ -6,11 +6,10 @@ import ujson
 from wheezy.http import response_cache
 from wheezy.http.response import HTTPResponse
 from wheezy.http.response import bad_request
-from wheezy.http.transforms import gzip_transform
-from wheezy.http.transforms import response_transforms
 from wheezy.web.handlers import file_handler
 
 from shared.views import APIHandler
+from shared.views import compress
 from shared.views import wraps_handler
 
 from public.web.profile import public_cache_profile
@@ -20,7 +19,7 @@ from public.web.profile import static_cache_profile
 class DailyQuoteHandler(APIHandler):
 
     @response_cache(public_cache_profile)
-    @response_transforms(gzip_transform(compress_level=9))
+    @compress
     def get(self):
         if not self.request.ajax:
             return bad_request()
