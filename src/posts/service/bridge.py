@@ -35,8 +35,13 @@ class PostsService(ErrorsMixin):
 
     @authorized
     def add_post_comment(self, slug, message):
+        if not self.can_comment():
+            self.error('There are too many of your comments awaiting '
+                       'moderation. Come back later, please.')
+            return False
         r = self.factory.posts.add_post_comment(
             slug, self.principal.id, message)
         if not r:
             self.error('Post not found.')
-        return r
+            return False
+        return True
