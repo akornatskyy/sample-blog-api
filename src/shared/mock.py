@@ -22,10 +22,10 @@ def pager(items, page, size, f):
     n = len(items)
     paging = {}
     if page > 0:
-        paging['before'] = page - 1;
+        paging['before'] = page - 1
 
     if end < n:
-        paging['after'] = page + 1;
+        paging['after'] = page + 1
     else:
         end = n
     return {
@@ -35,7 +35,7 @@ def pager(items, page, size, f):
 
 
 def first(items, predicate):
-    return next(ifilter(predicate,items), None)
+    return next(ifilter(predicate, items), None)
 
 
 def nfilter(items, n, predicate):
@@ -46,4 +46,4 @@ def nfilter(items, n, predicate):
             n -= 1
         if not n:
             break
-    return r;
+    return r
