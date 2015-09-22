@@ -7,13 +7,16 @@ from wheezy.http.response import not_found
 from wheezy.web.authorization import authorize
 
 from shared.views import APIHandler
+from shared.views import compress
 
 from posts.validation import post_comment_validator
+from posts.validation import post_spec_validator
 from posts.validation import search_posts_validator
 
 
 class SearchPostsHandler(APIHandler):
 
+    @compress
     def get(self):
         m = attrdict(q=u(''), page=0)
         if (not self.try_update_model(m, self.request.query) or
@@ -28,9 +31,14 @@ class SearchPostsHandler(APIHandler):
 
 class PostHandler(APIHandler):
 
+    @compress
     def get(self):
-        p = self.get_post(self.route_args.slug,
-                          self.request.query.get('fields'))
+        m = attrdict(slug=u(''), fields=[''])
+        if (not self.try_update_model(m, self.route_args) or
+                not self.try_update_model(m, self.request.query) or
+                not self.validate(m, post_spec_validator)):
+            return self.json_errors()
+        p = self.get_post(m.slug, m.fields)
         if not p:
             return not_found()
         return self.json_response(p)
@@ -53,8 +61,9 @@ class PostCommentsHandler(APIHandler):
 
     @authorize
     def post(self):
-        m = attrdict(slug=self.route_args.slug, message=u(''))
-        if (not self.try_update_model(m) or
+        m = attrdict(slug=u(''), message=u(''))
+        if (not self.try_update_model(m, self.route_args) or
+                not self.try_update_model(m) or
                 not self.validate(m, post_comment_validator) or
                 not self.add_post_comment(m)):
             return self.json_errors()
