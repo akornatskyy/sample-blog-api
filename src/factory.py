@@ -13,10 +13,12 @@ from public.service.bridge import QuoteService
 
 class Factory(object):
 
-    def __init__(self, session_name, **context):
-        self.context = context
-        self.session = sessions[session_name]()
-        self.factory = RepositoryFactory(self.session)
+    def __init__(self, session_name, errors, principal):
+        session = sessions[session_name]()
+        self.factory = RepositoryFactory(session)
+        self.session = session
+        self.errors = errors
+        self.principal = principal
 
     def __enter__(self):
         self.session.__enter__()
@@ -27,17 +29,17 @@ class Factory(object):
 
     @attribute
     def membership(self):
-        return MembershipService(self.factory, self.context['errors'])
+        return MembershipService(
+            self.factory, self.errors, self.principal)
 
     @attribute
     def posts(self):
-        return PostsService(self.factory,
-                            self.context['errors'],
-                            self.context['principal'])
+        return PostsService(
+            self.factory, self.errors, self.principal)
 
     @attribute
     def quote(self):
-        return QuoteService(self.factory, self.context['errors'])
+        return QuoteService(self.factory)
 
 
 class RepositoryFactory(object):
