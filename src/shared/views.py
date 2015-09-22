@@ -10,6 +10,7 @@ from wheezy.http.transforms import response_transforms
 from wheezy.routing import url
 from wheezy.web.handlers import BaseHandler
 from wheezy.web.handlers import file_handler
+from wheezy.web.transforms import handler_transforms
 
 from public.web.profile import public_cache_profile
 
@@ -19,9 +20,10 @@ from factory import Factory
 class APIHandler(BaseHandler):
 
     def factory(self, session_name='ro'):
-        return Factory(session_name, **self.context)
+        return Factory(session_name, self.errors, self.principal)
 
     def json_errors(self):
+        assert self.errors
         r = self.json_response(self.errors)
         r.status_code = 400
         return r
@@ -31,6 +33,8 @@ class APIHandler(BaseHandler):
         r.write_bytes(ujson.dumps(obj))
         return r
 
+
+compress = handler_transforms(gzip_transform(compress_level=9))
 
 wraps_handler = lambda p: lambda h: response_cache(p)(
     response_transforms(gzip_transform(compress_level=9, min_length=256))(h))
