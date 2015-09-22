@@ -1,3 +1,6 @@
+"""
+"""
+
 import json
 import os.path
 
@@ -16,13 +19,28 @@ class MembershipRepository(object):
         u = _.first(samples.users, lambda u: u.username == username)
         if not u:
             return None
-        return {'id': u.id, 'password': u.password}
+        return attrdict(id=u.id, password=u.password)
 
     def get_user(self, user_id):
-        u = find_user_by_id(user_id)
+        u = find_user_by_id(int(user_id))
         if not u:
             return None
-        return {'id': str(u.id)}
+        return attrdict(id=str(u.id), username=u.username)
+
+    def has_account(self, username):
+        return _.first(samples.users,
+                       lambda u: u.username == username) is not None
+
+    def create_account(self, r):
+        # TODO
+        samples.users.append(attrdict(
+            first_name='',
+            id=100,
+            last_name='',
+            password=r.password,
+            username=r.username,
+            gravatar_hash=''))
+        return False
 
 
 def find_user_by_id(user_id):
