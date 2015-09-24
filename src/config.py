@@ -15,6 +15,7 @@ except ImportError:  # pragma: nocover
 from datetime import timedelta
 
 from wheezy.caching.logging import OnePassHandler
+from wheezy.caching.patterns import Cached
 from wheezy.core.collections import defaultdict
 from wheezy.html.ext.template import WhitespaceExtension
 from wheezy.html.ext.template import WidgetExtension
@@ -51,6 +52,7 @@ elif mode == 'memcached':
     cache = MemcachedClient(pool)
 else:
     raise NotImplementedError(mode)
+cached = Cached(cache, time=timedelta(hours=4))
 
 options = {}
 
