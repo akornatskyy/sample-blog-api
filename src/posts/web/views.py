@@ -4,7 +4,10 @@
 from wheezy.core.collections import attrdict
 from wheezy.core.comp import u
 from wheezy.http.response import not_found
+from wheezy.web import handler_cache
 from wheezy.web.authorization import authorize
+
+from config import cached
 
 from shared.views import APIHandler
 from shared.views import compress
@@ -12,10 +15,13 @@ from shared.views import compress
 from posts.validation import post_comment_validator
 from posts.validation import post_spec_validator
 from posts.validation import search_posts_validator
+from posts.web import keys
+from posts.web import profile
 
 
 class SearchPostsHandler(APIHandler):
 
+    @handler_cache(profile=profile.search_posts)
     @compress
     def get(self):
         m = attrdict(q=u(''), page=0)
@@ -31,6 +37,7 @@ class SearchPostsHandler(APIHandler):
 
 class PostHandler(APIHandler):
 
+    @handler_cache(profile=profile.post)
     @compress
     def get(self):
         m = attrdict(slug=u(''), fields=[''])
@@ -41,7 +48,9 @@ class PostHandler(APIHandler):
         p = self.get_post(m.slug, m.fields)
         if not p:
             return not_found()
-        return self.json_response(p)
+        r = self.json_response(p)
+        r.cache_dependency = (keys.post(m.slug),)
+        return r
 
     def get_post(self, slug, fields):
         with self.factory('ro') as f:
@@ -76,4 +85,5 @@ class PostCommentsHandler(APIHandler):
             if not f.posts.add_post_comment(m.slug, m.message):
                 return False
             f.session.commit()
+        cached.dependency.delete(keys.post(m.slug))
         return True
