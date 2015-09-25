@@ -8,7 +8,7 @@ from wheezy.web import handler_cache
 from wheezy.web.authorization import authorize
 
 from config import cached
-
+from lockout import locker
 from shared.views import APIHandler
 from shared.views import compress
 
@@ -68,7 +68,13 @@ class PostHandler(APIHandler):
 
 class PostCommentsHandler(APIHandler):
 
+    lockout = locker.define(
+        name='post comments',
+        by_ip=dict(count=2, duration=60)
+    )
+
     @authorize
+    @lockout.forbid_locked
     def post(self):
         m = attrdict(slug=u(''), message=u(''))
         if (not self.try_update_model(m, self.route_args) or
@@ -80,6 +86,7 @@ class PostCommentsHandler(APIHandler):
         r.status_code = 201
         return r
 
+    @lockout.quota
     def add_post_comment(self, m):
         with self.factory('rw') as f:
             if not f.posts.add_post_comment(m.slug, m.message):
