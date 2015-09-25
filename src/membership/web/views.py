@@ -6,6 +6,7 @@ from wheezy.core.comp import u
 from wheezy.security import Principal
 from wheezy.web.authorization import authorize
 
+from lockout import locker
 from shared.views import APIHandler
 
 from membership.validation import credential_validator
@@ -15,6 +16,12 @@ from membership.validation import signup_validator
 
 class SignInHandler(APIHandler):
 
+    lockout = locker.define(
+        name='signin attempts',
+        by_ip=dict(count=3, duration=60)
+    )
+
+    @lockout.forbid_locked
     def post(self):
         m = attrdict(username=u(''), password=u(''))
         if (not self.try_update_model(m) or
@@ -23,6 +30,7 @@ class SignInHandler(APIHandler):
             return self.json_errors()
         return self.json_response({'username': m.username})
 
+    @lockout.guard
     def authenticate(self, credential):
         with self.factory('ro') as f:
             user = f.membership.authenticate(credential)
@@ -34,6 +42,12 @@ class SignInHandler(APIHandler):
 
 class SignUpHandler(APIHandler):
 
+    lockout = locker.define(
+        name='signup attempts',
+        by_ip=dict(count=2, duration=60)
+    )
+
+    @lockout.forbid_locked
     def post(self):
         m = attrdict(email=u(''), username=u(''), password=u(''))
         p = attrdict(password=u(''), confirm_password=u(''))
@@ -46,6 +60,7 @@ class SignUpHandler(APIHandler):
             return self.json_errors()
         return self.json_response({})
 
+    @lockout.quota
     def create_account(self, m):
         with self.factory('rw') as f:
             if not f.membership.create_account(m):
