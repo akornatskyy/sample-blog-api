@@ -9,7 +9,7 @@ class HTTPErrorPassThroughMiddleware(object):
 
     def __call__(self, request, following):
         response = following(request)
-        if (response.status_code >= 400 and
+        if (response and response.status_code >= 400 and
                 request.ajax and
                 request.path.startswith('/api/')):
             request.environ['route_args']['route_name'] = \
