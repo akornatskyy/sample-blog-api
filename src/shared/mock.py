@@ -1,9 +1,13 @@
 """
 """
 
+import json
+import os.path
 import re
 
 from itertools import ifilter
+
+from wheezy.core.collections import attrdict
 
 
 RE_TRANCATE_WORDS = re.compile('\s|\\\\n')
@@ -47,3 +51,9 @@ def nfilter(items, n, predicate):
         if not n:
             break
     return r
+
+
+def load_samples(module_file):
+    return json.load(open(os.path.join(
+        os.path.dirname(os.path.realpath(module_file)),
+        'samples.json')), object_hook=attrdict)

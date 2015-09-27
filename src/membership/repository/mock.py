@@ -1,9 +1,6 @@
 """
 """
 
-import json
-import os.path
-
 from wheezy.core.collections import attrdict
 
 from shared import mock as _
@@ -47,6 +44,4 @@ def find_user_by_id(user_id):
     return _.first(samples.users, lambda u: u.id == user_id)
 
 
-samples = json.load(open(os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),
-    'samples.json')), object_hook=attrdict)
+samples = _.load_samples(__file__)

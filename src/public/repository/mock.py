@@ -1,8 +1,7 @@
 """
 """
 
-import json
-import os.path
+from shared import mock as _
 
 
 class QuoteRepository(object):
@@ -15,6 +14,4 @@ class QuoteRepository(object):
         return samples['quote']
 
 
-samples = json.load(open(os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),
-    'samples.json')))
+samples = _.load_samples(__file__)

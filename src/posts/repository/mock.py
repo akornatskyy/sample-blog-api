@@ -1,9 +1,6 @@
 """
 """
 
-import json
-import os.path
-
 from datetime import datetime
 
 from wheezy.core.collections import attrdict
@@ -97,6 +94,4 @@ class PostsRepository(object):
         return True
 
 
-samples = json.load(open(os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),
-    'samples.json')), object_hook=attrdict)
+samples = _.load_samples(__file__)
