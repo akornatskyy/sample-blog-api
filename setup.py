@@ -43,14 +43,14 @@ dependency_links = [
 ]
 
 setup(
-    name='mysite',
+    name='sample-blog-api',
     version='0.1',
-    description='MySite Project',
+    description='Sample Blog API',
     long_description=README,
-    url='https://scm.dev.local/svn/mysite/trunk',
+    url='https://github.com/akornatskyy/sample-blog-api',
 
-    author='MySite Team',
-    author_email='mysite at dev.local',
+    author='Andriy Kornatskyy',
+    author_email='andriy.kornatskyy@live.com',
 
     license='COMMERCIAL',
     classifiers=[
@@ -69,8 +69,19 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules'
     ],
     packages=[
+        'membership',
+        'membership.repository',
+        'membership.service',
+        'membership.web',
+        'posts',
+        'posts.repository',
+        'posts.service',
+        'posts.web',
         'public',
-        'public.web'
+        'public.repository',
+        'public.service',
+        'public.web',
+        'shared'
     ],
     package_dir={'': 'src'},
 
