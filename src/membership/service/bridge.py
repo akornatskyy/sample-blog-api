@@ -3,15 +3,10 @@
 
 from wheezy.core.descriptors import attribute
 from wheezy.security.authorization import authorized
-from wheezy.validation.mixin import ErrorsMixin
 
+from shared.bridge import BaseService
 
-class MembershipService(ErrorsMixin):
-
-    def __init__(self, factory, errors, principal):
-        self.factory = factory
-        self.errors = errors
-        self.principal = principal
+class MembershipService(BaseService):
 
     @attribute
     @authorized

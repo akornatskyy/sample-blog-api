@@ -2,15 +2,11 @@
 """
 
 from wheezy.security.authorization import authorized
-from wheezy.validation.mixin import ErrorsMixin
+
+from shared.bridge import BaseService
 
 
-class PostsService(ErrorsMixin):
-
-    def __init__(self, factory, errors, principal):
-        self.factory = factory
-        self.errors = errors
-        self.principal = principal
+class PostsService(BaseService):
 
     def search_posts(self, q, page):
         return self.factory.posts.search_posts(q, page)
