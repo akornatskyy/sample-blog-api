@@ -6,6 +6,7 @@ from wheezy.security.authorization import authorized
 
 from shared.bridge import BaseService
 
+
 class MembershipService(BaseService):
 
     @attribute
