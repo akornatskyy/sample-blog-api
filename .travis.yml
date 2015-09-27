@@ -2,6 +2,7 @@ language: python
 
 install:
     - make env
+    - mkdir -p content/static/{css,js}
 
 script:
     - make test
