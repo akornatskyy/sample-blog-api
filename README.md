@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/akornatskyy/sample-blog-api.svg?branch=master)](https://travis-ci.org/akornatskyy/sample-blog-api)
 [![Code Climate](https://codeclimate.com/github/akornatskyy/sample-blog-api/badges/gpa.svg)](https://codeclimate.com/github/akornatskyy/sample-blog-api)
+[![Licence](http://img.shields.io/badge/Licence-MIT-brightgreen.svg)](LICENSE)
 
 A simple blog API written using [python](http://python.org/) and
 [wheezy.web](https://bitbucket.org/akorn/wheezy.web) framework.
