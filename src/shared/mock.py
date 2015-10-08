@@ -48,8 +48,8 @@ def nfilter(items, n, predicate):
         if predicate(i):
             r.append(i)
             n -= 1
-        if not n:
-            break
+            if not n:
+                break
     return r
 
 
