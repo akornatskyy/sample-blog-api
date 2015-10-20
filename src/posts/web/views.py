@@ -49,7 +49,12 @@ class PostHandler(APIHandler):
         if not p:
             return not_found()
         r = self.json_response(p)
-        r.cache_dependency = (keys.post(m.slug),)
+        if self.principal:
+            r.cache_dependency = (
+                keys.post(m.slug),
+                keys.author_comments(self.principal.id))
+        else:
+            r.cache_dependency = (keys.post(m.slug),)
         return r
 
     def get_post(self, slug, fields):
@@ -92,5 +97,7 @@ class PostCommentsHandler(APIHandler):
             if not f.posts.add_post_comment(m.slug, m.message):
                 return False
             f.session.commit()
-        cached.dependency.delete(keys.post(m.slug))
+        cached.dependency.delete_multi((
+            keys.post(m.slug),
+            keys.author_comments(self.principal.id)))
         return True
