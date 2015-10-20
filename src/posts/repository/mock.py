@@ -37,12 +37,17 @@ class PostsRepository(object):
             }
         return _.pager(posts, page, 2, translate)
 
+    def get_post_id(self, slug):
+        p = _.first(samples.posts, lambda p: p.slug == slug)
+        return p and p.id
+
     def get_post(self, slug):
         p = _.first(samples.posts, lambda p: p.slug == slug)
         if not p:
             return None
         a = find_user_by_id(p.author_id)
         return {
+            'id': p.id,
             'slug': p.slug,
             'title': p.title,
             'created_on': p.created_on,
@@ -51,7 +56,7 @@ class PostsRepository(object):
                 'last_name': a.last_name
             },
             'message': p.message
-        }, p.id
+        }
 
     def list_comments(self, post_id, author_id):
         r = []
@@ -78,10 +83,7 @@ class PostsRepository(object):
             samples.comments, limit,
             lambda c: c.author_id == user_id and not c.moderated))
 
-    def add_post_comment(self, slug, author_id, message):
-        p = _.first(samples.posts, lambda p: p.slug == slug)
-        if not p:
-            return False
+    def add_post_comment(self, post_id, author_id, message):
         now = datetime.utcnow().replace(tzinfo=UTC)
         samples['comments'].insert(0, attrdict(
             author_id=int(author_id),
@@ -89,7 +91,7 @@ class PostsRepository(object):
             id='',
             message=message,
             moderated=False,
-            post_id=p.id
+            post_id=post_id
         ))
         return True
 
