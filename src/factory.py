@@ -7,7 +7,9 @@ from wheezy.core.introspection import import_name
 from config import config
 
 from membership.service.bridge import MembershipService
+from posts.repository.caching import PostsRepository
 from posts.service.bridge import PostsService
+from public.repository.caching import QuoteRepository
 from public.service.bridge import QuoteService
 
 
@@ -53,11 +55,11 @@ class RepositoryFactory(object):
 
     @attribute
     def posts(self):
-        return PostsPersistence(self.session)
+        return PostsRepository(PostsPersistence(self.session))
 
     @attribute
     def quote(self):
-        return QuotePersistence(self.session)
+        return QuoteRepository(QuotePersistence(self.session))
 
 
 def mock_sessions():
