@@ -35,9 +35,13 @@ class PostsService(BaseService):
             self.error('There are too many of your comments awaiting '
                        'moderation. Come back later, please.')
             return False
-        r = self.factory.posts.add_post_comment(
-            slug, self.principal.id, message)
-        if not r:
-            self.error('Post not found.')
+        post_id = self.factory.posts.get_post_id(slug)
+        if not post_id:
+            self.error('We\'re sorry... the post cannot be found.')
+            return False
+        ok = self.factory.posts.add_post_comment(
+            post_id, self.principal.id, message)
+        if not ok:
+            self.error('We\'re sorry... the comment cannot be added.')
             return False
         return True
