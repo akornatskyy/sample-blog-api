@@ -54,15 +54,15 @@ class PostHandler(APIHandler):
 
     def get_post(self, slug, fields):
         with self.factory('ro') as f:
-            r = f.posts.get_post(slug)
-            if not r:
+            p = f.posts.get_post(slug)
+            if not p:
                 return None
-            p, post_id = r
+            p
             if fields:
                 if 'permissions' in fields:
-                    p['permissions'] = f.posts.post_permissions(post_id)
+                    p['permissions'] = f.posts.post_permissions(p['id'])
                 if 'comments' in fields:
-                    p['comments'] = f.posts.list_comments(post_id)
+                    p['comments'] = f.posts.list_comments(p['id'])
         return p
 
 
