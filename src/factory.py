@@ -6,6 +6,7 @@ from wheezy.core.introspection import import_name
 
 from config import config
 
+from membership.repository.caching import MembershipRepository
 from membership.service.bridge import MembershipService
 from posts.repository.caching import PostsRepository
 from posts.service.bridge import PostsService
@@ -51,7 +52,7 @@ class RepositoryFactory(object):
 
     @attribute
     def membership(self):
-        return MembershipPersistence(self.session)
+        return MembershipRepository(MembershipPersistence(self.session))
 
     @attribute
     def posts(self):
