@@ -62,7 +62,6 @@ class PostHandler(APIHandler):
             p = f.posts.get_post(slug)
             if not p:
                 return None
-            p
             if fields:
                 if 'permissions' in fields:
                     p['permissions'] = f.posts.post_permissions(p['id'])
