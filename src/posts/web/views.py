@@ -54,7 +54,7 @@ class PostHandler(APIHandler):
                 keys.post(m.slug),
                 keys.author_comments(self.principal.id))
         else:
-            r.cache_dependency = (keys.post(m.slug),)
+            r.cache_dependency = (keys.post_public(m.slug),)
         return r
 
     def get_post(self, slug, fields):
