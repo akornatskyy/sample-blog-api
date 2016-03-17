@@ -25,8 +25,8 @@ install_optional = [
     'pycrypto>=2.6.1'
 ]
 
-if sys.version_info[0] == 2:
-    install_optional.append('pylibmc>=1.2.3')
+# if sys.version_info[0] == 2:
+#    install_optional.append('pylibmc>=1.2.3')
 
 install_requires += install_optional
 
