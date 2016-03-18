@@ -8,10 +8,18 @@ A simple blog API written using [python](http://python.org/) and
 
 # Setup
 
-Install dependencies into virtual environment:
+Virtual environment:
 
     virtualenv --python=/opt/local/bin/python2.7 env
     source env/bin/activate
+
+on Windows:
+
+	virtualenv.exe env
+	env\Scripts\activate.bat
+
+install dependencies:
+	
     python setup.py develop
     easy_install pastescript
 
