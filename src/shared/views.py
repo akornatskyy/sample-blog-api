@@ -34,10 +34,17 @@ class APIHandler(BaseHandler):
         return r
 
 
-compress = handler_transforms(gzip_transform(compress_level=9))
+compress = handler_transforms(gzip_transform(compress_level=9, min_length=256))
 
-wraps_handler = lambda p: lambda h: response_cache(p)(
-    response_transforms(gzip_transform(compress_level=9, min_length=256))(h))
+
+def wraps_handler(p):
+    def wrapper(h):
+        return response_cache(p)(
+            response_transforms(gzip_transform(
+                compress_level=9, min_length=256))(h))
+    return wrapper
+
+
 static = wraps_handler(public_cache_profile)(file_handler('content/static'))
 
 
