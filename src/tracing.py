@@ -24,9 +24,9 @@ def error_report_extra_provider(request):
     else:
         form = {}
     return {
-        'HTTP_ACCEPT_LANGUAGE': e['HTTP_ACCEPT_LANGUAGE'],
+        'HTTP_ACCEPT_LANGUAGE': e.get('HTTP_ACCEPT_LANGUAGE', '?'),
         'HTTP_REFERER': e.get('HTTP_REFERER', '?'),
-        'HTTP_USER_AGENT': e['HTTP_USER_AGENT'],
+        'HTTP_USER_AGENT': e.get('HTTP_USER_AGENT', '?'),
         'PATH_INFO': e['PATH_INFO'],
         'REMOTE_ADDR': e['REMOTE_ADDR'],
         'REQUEST_METHOD': e['REQUEST_METHOD'],
