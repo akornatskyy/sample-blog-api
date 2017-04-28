@@ -22,6 +22,7 @@ mode = config.get('runtime', 'lockout')
 def ignore_alert(s, name, counter, extra=None):
     pass
 
+
 if mode == 'ignore':
     mail_alert = ignore_alert
 elif mode == 'mail':
