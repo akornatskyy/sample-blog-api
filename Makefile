@@ -7,7 +7,7 @@ ENV=env
 
 PYTHON=$(ENV)/bin/python$(VERSION)
 EASY_INSTALL=$(ENV)/bin/easy_install-$(VERSION)
-PYTEST=$(ENV)/bin/py.test-$(VERSION)
+PYTEST=$(ENV)/bin/pytest
 NOSE=$(ENV)/bin/nosetests-$(VERSION)
 
 
@@ -34,7 +34,8 @@ env: virtualenv
 	if [ `uname` = 'FreeBSD' ]; then \
 	    export LIBMEMCACHED=/usr/local ; \
 	fi ; \
-	$(PYTHON) setup.py develop -O2 -U -i $(PYPI)
+	$(PYTHON) setup.py develop -O2 -U -i $(PYPI) ; \
+	mkdir -p content/static/css content/static/js
 
 clean:
 	find src/ -type d -name __pycache__ | xargs rm -rf
