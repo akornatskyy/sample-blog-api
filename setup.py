@@ -8,11 +8,11 @@ from setuptools import setup
 README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 
 install_requires = [
-    'ujson>=1.33',
+    'ujson>=1.35',
     'wheezy.core>=0.1.140',
     'wheezy.caching>=0.1.114',
     'wheezy.html>=0.1.147',
-    'wheezy.http>=0.1.340',
+    'wheezy.http>=0.1.344',
     'wheezy.routing>=0.1.157',
     'wheezy.security>=0.1.64',
     'wheezy.template>=0.1.167',
