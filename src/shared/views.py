@@ -30,7 +30,7 @@ class APIHandler(BaseHandler):
 
     def json_response(self, obj):
         r = HTTPResponse('application/json; charset=UTF-8', 'UTF-8')
-        r.write_bytes(ujson.dumps(obj))
+        r.write_bytes(ujson.dumps(obj).encode('UTF-8'))
         return r
 
 
