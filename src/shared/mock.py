@@ -5,10 +5,11 @@ import json
 import os.path
 import re
 
-from itertools import ifilter
-
 from wheezy.core.collections import attrdict
+from wheezy.core.comp import PY2
 
+if PY2:
+    from itertools import ifilter as filter
 
 RE_TRANCATE_WORDS = re.compile('\s|\\\\n')
 
@@ -39,7 +40,7 @@ def pager(items, page, size, f):
 
 
 def first(items, predicate):
-    return next(ifilter(predicate, items), None)
+    return next(filter(predicate, items), None)
 
 
 def nfilter(items, n, predicate):
