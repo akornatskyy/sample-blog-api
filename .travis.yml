@@ -1,9 +1,12 @@
 language: python
 
+python:
+    - "2.7"
+    - "3.6"
+
 install:
-    - make env
-    - mkdir -p content/static/{css,js}
+    - make env VERSION=$TRAVIS_PYTHON_VERSION
 
 script:
-    - make test
-    - make qa
+    - make test VERSION=$TRAVIS_PYTHON_VERSION
+    #- make qa
