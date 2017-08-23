@@ -1,6 +1,7 @@
 """
 """
 
+import os
 import ujson
 
 from wheezy.http import response_cache
@@ -45,8 +46,9 @@ def wraps_handler(p):
     return wrapper
 
 
-static = wraps_handler(public_cache_profile)(file_handler('content/static'))
+if os.path.exists('content/static'):
+    static = wraps_handler(public_cache_profile)(
+        file_handler('content/static'))
 
-
-def url_index(path, name=None):
-    return url(path, static, {'path': 'index.html'}, name=name)
+    def url_index(path, name=None):
+        return url(path, static, {'path': 'index.html'}, name=name)

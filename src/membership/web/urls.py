@@ -1,9 +1,8 @@
 """
 """
+import os
 
 from wheezy.routing import url
-
-from shared.views import url_index
 
 from membership.web.views import SignInHandler
 from membership.web.views import SignOutHandler
@@ -18,7 +17,10 @@ membership_api_urls = [
     url('user', UserHandler)
 ]
 
-membership_urls = [
-    url_index('signin', name='signin'),
-    url_index('signup', name='signup')
-]
+membership_urls = []
+if os.path.exists('content/static'):
+    from shared.views import url_index
+    membership_urls += [
+        url_index('signin', name='signin'),
+        url_index('signup', name='signup')
+    ]

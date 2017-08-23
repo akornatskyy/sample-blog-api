@@ -1,6 +1,7 @@
 """
 """
 
+import os
 import ujson
 
 from wheezy.http import response_cache
@@ -42,7 +43,7 @@ def error_response(status_code, subject, message):
 
     def handler(request):
         r = HTTPResponse('application/json; charset=UTF-8', 'UTF-8')
-        r.write_bytes(b)
+        r.write_bytes(b.encode('UTF-8'))
         r.status_code = status_code
         return r
     return handler
@@ -84,7 +85,8 @@ prevented it from fulfilling the request by the client for access to the \
 requested URL.')
 
 
-w = wraps_handler(static_cache_profile)
-css_file = w(file_handler('content/static/css'))
-js_file = w(file_handler('content/static/js'))
-static_file = w(file_handler('content/static'))
+if os.path.exists('content/static'):
+    w = wraps_handler(static_cache_profile)
+    css_file = w(file_handler('content/static/css'))
+    js_file = w(file_handler('content/static/js'))
+    static_file = w(file_handler('content/static'))
