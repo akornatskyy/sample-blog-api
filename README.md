@@ -10,7 +10,7 @@ A simple blog API written using [python](http://python.org/) and
 
 Virtual environment:
 
-    virtualenv --python=/opt/local/bin/python2.7 env
+    virtualenv -p python2.7 env
     source env/bin/activate
 
 on Windows:
@@ -19,9 +19,12 @@ on Windows:
 	env\Scripts\activate.bat
 
 install dependencies:
-	
-    python setup.py develop
-    easy_install pastescript
+
+    pip install -e .
+
+install development dependencies:
+
+    pip install -r requirements.txt
 
 # Prepare
 
@@ -43,9 +46,17 @@ and linked to `content/static` directory:
 
 # Run
 
-Serve files with a web server:
+Serve files with paster (`pip install pastescript`) web server:
 
     paster serve --reload etc/development.ini
+
+or uwsgi:
+
+    uwsgi --ini etc/development.ini
+
+or gunicorn:
+
+    gunicorn -b 0.0.0.0:8080 -w 1 app:main
 
 Open your browser at [http://localhost:8080](http://localhost:8080),
 use *demo* / *password*.

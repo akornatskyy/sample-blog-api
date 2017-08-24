@@ -1,4 +1,4 @@
-FROM python:2-alpine
+FROM python:3-alpine
 
 MAINTAINER Andriy Kornatskyy <andriy.kornatskyy@live.com>
 
@@ -23,7 +23,6 @@ RUN set -ex \
     && pip --no-cache-dir install -e . uwsgi \
     \
     && python -OO -m compileall src/ \
-    && find src/ -name '*.py' -delete \
     \
     && apk del .build-deps
 

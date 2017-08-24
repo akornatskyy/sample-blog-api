@@ -3,6 +3,7 @@ content/static
 dist/
 env/
 src/*.egg-info/
+__pycache__/
 .cache/
 .coverage
 *.pyc

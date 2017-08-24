@@ -11,12 +11,15 @@ from fabric.api import sudo
 # apt-get install sudo
 # #adduser <username> sudo
 # echo '<username> ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers
-# env/bin/fab -H <host> -u <username> <command>
+# fab -H <host> -u <username> <command>
+#   once: os_upgrade debian install config restart
+#   next: update reload
 
 NAME = 'mysite'
 ETC_PATH = '/usr/local/etc/' + NAME
 LIB_PATH = '/usr/local/lib/' + NAME
 USER = env['user']
+PY2 = False
 
 
 def update():
@@ -28,7 +31,11 @@ def update():
         run('tar xzf ' + filename)
         run('rm ' + filename)
         with cd(name):
-            run('make install')
+            if PY2:
+                run('python2 -m virtualenv env')
+            else:
+                run('python3 -m venv env')
+            run('env/bin/pip install -e . pylibmc')
             sudo('cp content/maintenance.html /usr/share/nginx/www')
         run('rm -f current && ln -s %s current' % name)
 
@@ -128,11 +135,14 @@ def cache_stats():
 
 def debian():
     sudo('apt-get -dqq update')
-    sudo('apt-get --no-install-recommends -yq install build-essential '
-         'ntpdate python2.7 python2.7-dev python-setuptools '
-         'python-virtualenv gettext libgmp3-dev '
-         'nginx-full uwsgi uwsgi-plugin-python '
-         'libmemcached-dev memcached mailutils socat')
+    packages = 'build-essential ntpdate gettext libgmp3-dev nginx-full ' + \
+        'uwsgi libmemcached-dev libz-dev memcached mailutils socat '
+    if PY2:
+        packages += 'python2.7 python2.7-dev python-virtualenv ' + \
+            'uwsgi-plugin-python'
+    else:
+        packages += 'python3 python3-dev python3-venv uwsgi-plugin-python3'
+    sudo('apt-get --no-install-recommends -yq install ' + packages)
     sudo('/etc/init.d/uwsgi start')
     sudo('/etc/init.d/nginx start')
     sudo('/etc/init.d/memcached start')
@@ -147,14 +157,11 @@ def os_upgrade():
 
 
 # region: internal details
-#
-# Allow members of group sudo to execute any command without password
-# %sudo   ALL=(ALL:ALL) NOPASSWD: ALL
 
 def get_name():
-    revision = local("hg head --template '{rev}'", capture=True)
+    revision = local("git rev-list --count HEAD", capture=True)
     assert int(revision) >= 0
-    name = local('env/bin/python setup.py --fullname', capture=True)
+    name = local('python setup.py --fullname', capture=True)
     return name + '.' + revision
 
 
