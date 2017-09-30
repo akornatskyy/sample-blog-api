@@ -34,16 +34,12 @@ The static content in
 need to be build with *web* api strategy:
 
     cd ../sample-blog-react
-    gulp build --api=web
-
-optionally:
-
-    gulp watch --debug --api=web
+    API=web npm run build
 
 and linked to `content/static` directory:
 
     cd ../sample-blog-api
-    ln -s ../../sample-blog-react/build content/static
+    ln -s ../../sample-blog-react/dist content/static
 
 # Run
 
