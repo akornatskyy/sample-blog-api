@@ -11,7 +11,7 @@ test:
 
 qa:
 	flake8 --max-complexity 6 src setup.py \
-		&& pep8 src setup.py
+		&& pycodestyle src setup.py
 
 run:
 	python -m app
