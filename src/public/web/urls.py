@@ -11,6 +11,7 @@ from public.web.views import http400
 from public.web.views import http401
 from public.web.views import http403
 from public.web.views import http404
+from public.web.views import http405
 from public.web.views import http500
 
 
@@ -23,6 +24,7 @@ error_urls = [
     url('401', http401, name='http401'),
     url('403', http403, name='http403'),
     url('404', http404, name='http404'),
+    url('405', http405, name='http405'),
     url('500', http500, name='http500'),
 ]
 

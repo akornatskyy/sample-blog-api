@@ -86,7 +86,8 @@ options.update({
         400: 'http400',
         403: 'http403',
         404: 'http404',
-        500: 'http500',
+        405: 'http405',
+        500: 'http500'
     }),
     'http_errors_logger': unhandled_logger,
     'http_errors_extra_provider': error_report_extra_provider

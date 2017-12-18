@@ -77,6 +77,14 @@ removed, had its name changed, under construction or is temporarily \
 unavailable. Try checking the web address for typos, please. We apologize \
 for the inconvenience.')
 
+http405 = error_response(
+    status_code=405,
+    subject='Oops! Code 405. Sorry, the HTTP method is not allowed.',
+    message='Unfortunately the resource you are looking for may have been \
+removed, had its name changed, under construction or is temporarily \
+unavailable. Try checking the web address for typos, please. We apologize \
+for the inconvenience.')
+
 http500 = error_response(
     status_code=500,
     subject='Oops! Code 500. Sorry, we can not process your request.',
