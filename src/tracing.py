@@ -16,13 +16,17 @@ start_time = time()
 def error_report_extra_provider(request):
     ts = os.times()
     e = request.environ
-    if 'CONTENT_LENGTH' in e and e['CONTENT_LENGTH'] and request.form:
-        form = filter_names(request.form, ignore=(
-            'password',
-            'confirm_password'
-        ))
-    else:
-        form = {}
+    content_length = e.get('CONTENT_LENGTH')
+    try:
+        if content_length and content_length != '0' and request.form:
+            form = filter_names(request.form, ignore=(
+                'password',
+                'confirm_password'
+            ))
+        else:
+            form = {}
+    except ValueError as ex:
+        form = str(ex)
     return {
         'HTTP_ACCEPT_LANGUAGE': e.get('HTTP_ACCEPT_LANGUAGE', '?'),
         'HTTP_REFERER': e.get('HTTP_REFERER', '?'),
