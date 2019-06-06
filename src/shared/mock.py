@@ -3,7 +3,6 @@
 
 import json
 import os.path
-import re
 
 from wheezy.core.collections import attrdict
 from wheezy.core.comp import PY2
@@ -11,11 +10,9 @@ from wheezy.core.comp import PY2
 if PY2:
     from itertools import ifilter as filter
 
-RE_TRANCATE_WORDS = re.compile('\s|\\\\n')
-
 
 def trancate_words(s, count):
-    s = RE_TRANCATE_WORDS.split(s, count + 1)[:-1]
+    s = list(filter(None, s.replace('\\n', ' ').split(' ', count + 1)[:-1]))
     if len(s) == count:
         s.append('...')
     return ' '.join(s)
