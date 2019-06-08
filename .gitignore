@@ -4,6 +4,7 @@ dist/
 env/
 src/*.egg-info/
 __pycache__/
+.pytest_cache/
 .cache/
 .coverage
 *.pyc
