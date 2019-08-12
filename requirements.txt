@@ -1,5 +1,5 @@
 apipkg==1.5
-configparser==3.7.4
+configparser==3.8.1
 coverage==4.5.4
 enum34==1.1.6
 execnet==1.6.1
