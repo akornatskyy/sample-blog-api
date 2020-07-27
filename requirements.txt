@@ -1,6 +1,6 @@
 apipkg==1.5
 configparser==4.0.2
-coverage==5.1
+coverage==5.2.1
 enum34==1.1.10
 execnet==1.7.1
 flake8==3.8.2
