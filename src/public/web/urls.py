@@ -6,7 +6,6 @@ import os
 from wheezy.routing import url
 
 from public.web.views import DailyQuoteHandler
-
 from public.web.views import http400
 from public.web.views import http401
 from public.web.views import http403
