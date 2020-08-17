@@ -12,5 +12,5 @@ pycodestyle==2.6.0
 pyflakes==2.2.0
 pytest==4.6.9
 pytest-cache==1.0
-pytest-cov==2.9.0
+pytest-cov==2.10.1
 pytest-pep8==1.0.6
