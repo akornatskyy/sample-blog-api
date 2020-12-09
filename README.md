@@ -11,15 +11,8 @@ A simple blog API written using [python](http://python.org/) and
 Virtual environment:
 
 ```sh
-virtualenv -p python2.7 env
-source env/bin/activate
-```
-
-on Windows:
-
-```sh
-virtualenv.exe env
-env\Scripts\activate.bat
+py -mvenv env
+. env/bin/activate
 ```
 
 install dependencies:

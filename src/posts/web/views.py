@@ -2,7 +2,6 @@
 """
 
 from wheezy.core.collections import attrdict
-from wheezy.core.comp import u
 from wheezy.http.response import not_found
 from wheezy.web import handler_cache
 from wheezy.web.authorization import authorize
@@ -24,7 +23,7 @@ class SearchPostsHandler(APIHandler):
     @handler_cache(profile=profile.search_posts)
     @compress
     def get(self):
-        m = attrdict(q=u(''), page=0)
+        m = attrdict(q='', page=0)
         if (not self.try_update_model(m, self.request.query) or
                 not self.validate(m, search_posts_validator)):
             return self.json_errors()
@@ -40,7 +39,7 @@ class PostHandler(APIHandler):
     @handler_cache(profile=profile.post)
     @compress
     def get(self):
-        m = attrdict(slug=u(''), fields=[''])
+        m = attrdict(slug='', fields=[''])
         if (not self.try_update_model(m, self.route_args) or
                 not self.try_update_model(m, self.request.query) or
                 not self.validate(m, post_spec_validator)):
@@ -80,7 +79,7 @@ class PostCommentsHandler(APIHandler):
     @authorize
     @lockout.forbid_locked
     def post(self):
-        m = attrdict(slug=u(''), message=u(''))
+        m = attrdict(slug='', message='')
         if (not self.try_update_model(m, self.route_args) or
                 not self.try_update_model(m) or
                 not self.validate(m, post_comment_validator) or

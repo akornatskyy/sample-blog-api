@@ -2,7 +2,6 @@
 """
 
 from wheezy.core.collections import attrdict
-from wheezy.core.comp import u
 from wheezy.security import Principal
 from wheezy.web.authorization import authorize
 
@@ -23,7 +22,7 @@ class SignInHandler(APIHandler):
 
     @lockout.forbid_locked
     def post(self):
-        m = attrdict(username=u(''), password=u(''))
+        m = attrdict(username='', password='')
         if (not self.try_update_model(m) or
                 not self.validate(m, credential_validator) or
                 not self.authenticate(m)):
@@ -49,8 +48,8 @@ class SignUpHandler(APIHandler):
 
     @lockout.forbid_locked
     def post(self):
-        m = attrdict(email=u(''), username=u(''), password=u(''))
-        p = attrdict(password=u(''), confirm_password=u(''))
+        m = attrdict(email='', username='', password='')
+        p = attrdict(password='', confirm_password='')
         if (not self.try_update_model(m) &
                 self.try_update_model(p) or
                 not self.validate(m, credential_validator) &

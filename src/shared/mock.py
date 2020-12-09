@@ -5,10 +5,6 @@ import json
 import os.path
 
 from wheezy.core.collections import attrdict
-from wheezy.core.comp import PY2
-
-if PY2:
-    from itertools import ifilter as filter
 
 
 def trancate_words(s, count):

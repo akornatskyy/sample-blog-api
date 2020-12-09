@@ -15,6 +15,7 @@ RUN set -ex \
         linux-headers \
         pcre-dev \
         gcc \
+        g++ \
         git \
     \
     && git clone --depth=1 https://github.com/akornatskyy/sample-blog-api.git /app \
