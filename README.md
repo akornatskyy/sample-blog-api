@@ -1,6 +1,5 @@
 # Sample Blog API
 
-[![Build Status](https://travis-ci.org/akornatskyy/sample-blog-api.svg?branch=master)](https://travis-ci.org/akornatskyy/sample-blog-api)
 [![Code Climate](https://codeclimate.com/github/akornatskyy/sample-blog-api/badges/gpa.svg)](https://codeclimate.com/github/akornatskyy/sample-blog-api)
 
 A simple blog API written using [python](http://python.org/) and
