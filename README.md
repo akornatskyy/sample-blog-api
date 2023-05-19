@@ -24,7 +24,7 @@ pip install -e .
 install development dependencies:
 
 ```sh
-pip install -r requirements/dev-py3.txt
+pip install -r requirements/dev.txt
 ```
 
 ## Prepare
