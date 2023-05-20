@@ -12,15 +12,15 @@ colorama==0.4.6
     # via
     #   build
     #   click
-packaging==23.0
+packaging==23.1
     # via build
-paste==3.5.2
+paste==3.5.3
     # via pastescript
 pastedeploy==3.0.1
     # via pastescript
 pastescript==3.3.0
     # via -r requirements/dev.in
-pip-tools==6.12.3
+pip-tools==6.13.0
     # via -r requirements/dev.in
 pyproject-hooks==1.0.0
     # via build
