@@ -8,20 +8,16 @@ build==1.2.2
     # via pip-tools
 click==8.1.7
     # via pip-tools
-colorama==0.4.6
-    # via
-    #   build
-    #   click
 packaging==24.1
     # via build
 paste==3.10.1
     # via pastescript
 pastedeploy==3.1.0
     # via pastescript
-pastescript==3.6.0
-    # via -r requirements/dev.in
+pastescript==3.7.0
+    # via -r dev.in
 pip-tools==7.4.1
-    # via -r requirements/dev.in
+    # via -r dev.in
 pyproject-hooks==1.2.0
     # via
     #   build
