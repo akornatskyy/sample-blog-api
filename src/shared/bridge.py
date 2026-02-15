@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.validation.mixin import ErrorsMixin
 
 

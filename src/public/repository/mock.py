@@ -1,6 +1,3 @@
-"""
-"""
-
 from shared import mock as _
 
 

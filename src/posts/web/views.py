@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.core.collections import attrdict
 from wheezy.http.response import not_found
 from wheezy.web import handler_cache

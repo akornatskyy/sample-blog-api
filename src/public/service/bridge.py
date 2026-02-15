@@ -1,7 +1,3 @@
-"""
-"""
-
-
 class QuoteService(object):
 
     def __init__(self, factory):

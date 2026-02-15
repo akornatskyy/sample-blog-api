@@ -1,7 +1,3 @@
-"""
-"""
-
-
 class HTTPErrorPassThroughMiddleware(object):
 
     def __init__(self, http_errors):

@@ -1,7 +1,3 @@
-"""
-"""
-
-
 def authenticate(username):
     return 'm:auth:' + username
 

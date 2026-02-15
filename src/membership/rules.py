@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.validation.rules import length
 from wheezy.validation.rules import required
 

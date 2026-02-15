@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.core.descriptors import attribute
 from wheezy.security.authorization import authorized
 

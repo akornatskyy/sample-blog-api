@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sample-blog-api"
+version = "0.1"
+description = "Sample Blog API"
+readme = "README.md"
+requires-python = ">=3.14"
+license = "MIT"
+authors = [{ name = "Andriy Kornatskyy", email = "andriy.kornatskyy@live.com" }]
+classifiers = [
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+  "Topic :: Internet :: WWW/HTTP :: WSGI",
+  "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+  "ujson",
+  "pycryptodome",
+  "wheezy.template",
+  "wheezy.web",
+]
+
+[project.urls]
+Homepage = "https://github.com/akornatskyy/sample-blog-api"
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.packages.find]
+where = ["src"]

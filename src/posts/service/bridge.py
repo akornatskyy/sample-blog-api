@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.security.authorization import authorized
 
 from shared.bridge import BaseService

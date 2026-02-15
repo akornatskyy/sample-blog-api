@@ -1,6 +1,3 @@
-"""
-"""
-
 import os
 
 from wheezy.routing import url

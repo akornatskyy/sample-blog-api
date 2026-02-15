@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.core.descriptors import attribute
 from wheezy.core.introspection import import_name
 

@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.caching.patterns import Cached
 from wheezy.caching.patterns import key_builder
 

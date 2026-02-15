@@ -1,7 +1,6 @@
 # Sample Blog API
 
 [![tests](https://github.com/akornatskyy/sample-blog-api/actions/workflows/tests.yml/badge.svg)](https://github.com/akornatskyy/sample-blog-api/actions/workflows/tests.yml)
-[![Code Climate](https://codeclimate.com/github/akornatskyy/sample-blog-api/badges/gpa.svg)](https://codeclimate.com/github/akornatskyy/sample-blog-api)
 
 A simple blog API written using [python](http://python.org/) and
 [wheezy.web](https://bitbucket.org/akorn/wheezy.web) framework.
@@ -47,10 +46,10 @@ ln -s ../../sample-blog-react/dist content/static
 
 ## Run
 
-Serve files with paster (`pip install pastescript`) web server:
+Serve with:
 
 ```sh
-paster serve --reload etc/development.ini
+python src/app
 ```
 
 or uwsgi:

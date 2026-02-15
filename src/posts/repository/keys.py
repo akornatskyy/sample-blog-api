@@ -1,7 +1,3 @@
-"""
-"""
-
-
 def search_posts(q, page):
     return 'p:sepo:' + q + ':' + str(page)
 

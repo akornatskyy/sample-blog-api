@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.routing import url
 
 from membership.web.urls import membership_api_urls

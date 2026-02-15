@@ -1,7 +1,3 @@
-"""
-"""
-
-
 def post_public(post_slug):
     return 'pstp:' + post_slug + ':'
 

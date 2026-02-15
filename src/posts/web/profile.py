@@ -1,6 +1,3 @@
-"""
-"""
-
 from datetime import timedelta
 
 from wheezy.http import CacheProfile

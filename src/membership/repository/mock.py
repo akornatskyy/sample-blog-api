@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.core.collections import attrdict
 
 from shared import mock as _

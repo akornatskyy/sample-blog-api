@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.core.collections import attrdict
 from wheezy.security import Principal
 from wheezy.web.authorization import authorize

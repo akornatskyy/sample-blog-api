@@ -1,6 +1,3 @@
-"""
-"""
-
 from wheezy.http import WSGIApplication
 from wheezy.http.middleware import http_cache_middleware_factory
 from wheezy.web.middleware import bootstrap_defaults
