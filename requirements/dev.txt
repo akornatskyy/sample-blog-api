@@ -8,16 +8,12 @@ build==1.4.0
     # via pip-tools
 click==8.3.1
     # via pip-tools
-colorama==0.4.6
-    # via
-    #   build
-    #   click
 packaging==26.0
     # via
     #   build
     #   wheel
-pip-tools==7.5.3
-    # via -r requirements/dev.in
+pip-tools==7.6.0
+    # via -r dev.in
 pyproject-hooks==1.2.0
     # via
     #   build
